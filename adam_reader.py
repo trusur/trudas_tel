@@ -56,6 +56,13 @@ try:
                     # reverse value to origin voltage
                     # voltage_value = float(value * 20 / 4095)
                     # print(voltage_value)
+                    # insert sensor_values
+                    sql_insert_data = (
+                        "INSERT INTO sensor_values (instrument_param_id, data, voltage, xtimestamp) VALUES ('" + str(ain[3]) + "','" + str(eval(ain[6])) + "','" + str(eval(ain[6])) + "','" + timestamp + "')")
+                    mycursor.execute(sql_insert_data)
+                    mydb.commit()
+                    print('insert sensor values')
+
                     log_check = (
                         "SELECT COUNT(*) FROM sensor_value_logs WHERE instrument_param_id = '" + str(ain[3]) + "'")
                     mycursor.execute(log_check)
@@ -77,6 +84,7 @@ try:
 
                     # is rca mode active
                     if(config[0] == 1):
+                        # insert data
                         if(ain[8] == 2):
                             getdatao2 = (
                                 "SELECT formula FROM sensors WHERE extra_parameter = '1'")
@@ -90,6 +98,26 @@ try:
                             mycursor.execute(sql_insert_log)
                             mydb.commit()
                             print('insert sensor RCA')
+
+                            # rca logs
+                            rca_log_check = (
+                                "SELECT COUNT(*) FROM sensor_value_rca_logs WHERE instrument_param_id = '" + str(ain[3]) + "'")
+                            mycursor.execute(rca_log_check)
+                            rca_reader_value = mycursor.fetchone()[0]
+                            if(rca_reader_value != 0):
+                                # update sensor_value_rca_logs
+                                sql_update_log = (
+                                    "UPDATE sensor_value_rca_logs SET data = '" + str(eval(ain[6])) + "', voltage = '" + str(eval(ain[6])) + "' WHERE instrument_param_id = '" + str(ain[3]) + "'")
+                                mycursor.execute(sql_update_log)
+                                mydb.commit()
+                                print('update sensor rca logs')
+                            else:
+                                # insert sensor_value_rca_logs
+                                sql_insert_log = (
+                                    "INSERT INTO sensor_value_rca_logs (instrument_param_id, data, voltage, xtimestamp) VALUES ('" + str(ain[3]) + "','" + str(eval(ain[6])) + "','" + str(eval(ain[6])) + "','" + timestamp + "')")
+                                mycursor.execute(sql_insert_log)
+                                mydb.commit()
+                                print('insert sensor rca logs')
             except Exception as e:
                 do_nothing = ''
         else:

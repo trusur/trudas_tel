@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Mconfiguration;
 use App\Models\Msensor;
 use App\Models\MsensorValueLog;
+use Exception;
 
 class Home extends BaseController
 {
@@ -27,6 +28,7 @@ class Home extends BaseController
             ->join('units', 'units.id = sensors.unit_id', 'left')
             ->orderBy('sensor_value_logs.instrument_param_id', 'ASC')
             ->findAll();
+        $data['mode_rca']   = $this->configuration->first()->is_rca;
 
         echo view('Home/Home', $data);
     }
@@ -42,5 +44,15 @@ class Home extends BaseController
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()], JSON_PRETTY_PRINT);
         }
+    }
+
+    // start / end mode RCA
+    public function modeRca()
+    {
+        $is_rca = $this->request->getPost('is_rca') == 1 ? 0 : 1;
+        $this->configuration->set(['is_rca' => $is_rca])->update();
+
+        session()->setFlashdata('message', 'Mode RCA Telah Aktif');
+        return redirect()->to('/');
     }
 }

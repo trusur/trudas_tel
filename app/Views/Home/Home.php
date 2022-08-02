@@ -3,7 +3,14 @@
 <!-- start content -->
 <?= $this->section('sectioncontent') ?>
 <div class="container">
-    <h1 class="border-bottom border-3 pr-3 pb-3 border-info d-inline-block"><?= @$title ?></h1>
+    <div class="row">
+        <div class="d-flex justify-content-between">
+            <h1 class="border-bottom border-3 pr-3 pb-3 border-info d-inline-block"><?= @$title ?></h1>
+            <span id="getrcastatus" data-is_rca="<?= $mode_rca ?>" class="btn <?= $mode_rca == 0 ? 'btn-warning' : 'btn-danger' ?> btn-sm" data-bs-toggle="modal" data-bs-target="#modal-start-mode-rca">
+                <h1 class="mt-2"><?= $mode_rca == 0 ? 'START MODE RCA' : 'STOP MODE RCA' ?></h1>
+            </span>
+        </div>
+    </div>
 
     <!-- alert -->
     <?= $this->include('Template/Alert') ?>
@@ -24,6 +31,28 @@
                 </div>
             </div>
         <?php endforeach ?>
+    </div>
+</div>
+
+<!-- modal start mode rca -->
+<div class="modal fade" id="modal-start-mode-rca" tabindex="-1" aria-labelledby="modal-start-mode-rca" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-warning">
+            <form action="<?= base_url('start-mode-rca') ?>" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title text-dark">Konfirmasi!</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="is_rca" id="is_rca">
+                    <p class="text-dark">Apakah Anda Yakin Ingin Memulai Mode RCA ?&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Start</button>
+                </div>
+        </div>
+        </form>
     </div>
 </div>
 <?= $this->endSection() ?>
@@ -65,6 +94,13 @@
             })
         }, 1000);
     });
+</script>
+
+<script>
+    // get id
+    $(document).on('click', '#getrcastatus', function() {
+        $('#is_rca').val($(this).data('is_rca'));
+    })
 </script>
 
 <!-- alert js -->

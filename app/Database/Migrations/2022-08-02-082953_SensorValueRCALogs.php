@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class SensorValueLogs extends Migration
+class SensorValueRCALogs extends Migration
 {
     public function up()
     {
@@ -19,11 +19,11 @@ class SensorValueLogs extends Migration
         $this->forge->addKey('instrument_param_id');
         $this->forge->addKey('data');
         $this->forge->addKey('voltage');
-        $this->forge->createTable('sensor_value_logs');
+        $this->forge->createTable('sensor_value_rca_logs');
     }
 
     public function down()
     {
-        $this->forge->dropTable('sensor_value_logs');
+        $this->forge->dropTable('sensor_value_rca_logs');
     }
 }

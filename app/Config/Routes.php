@@ -67,6 +67,7 @@ $routes->get('/unit/edit/(:any)', 'Unit\Unit::edit/$1');
 $routes->post('/unit/update', 'Unit\Unit::update');
 $routes->post('/unit/delete', 'Unit\Unit::delete');
 
+
 // user
 $routes->get('/user', 'User\User::index');
 $routes->post('/user/update', 'User\User::update');
@@ -77,6 +78,9 @@ $routes->post('/login-session', 'Login\Login::processLogin');
 
 // logout
 $routes->add('/logout', 'Login\Login::logout');
+
+// start mode rca
+$routes->post('/start-mode-rca', 'Home\Home::modeRca');
 
 /*
  * --------------------------------------------------------------------
