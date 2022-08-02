@@ -29,6 +29,7 @@
                     <th>Is Multi</th>
                     <th>Is Show</th>
                     <th>Extra Parameter</th>
+                    <th>RCA O2 Correction</th>
                     <th width="150">Action</th>
                 </thead>
                 <tbody>
@@ -45,6 +46,7 @@
                             <td><?= $sensor->is_multi_parameter == 0 ? '<span class="btn btn-danger btn-sm">No</span>' : '<span class="btn btn-success btn-sm">Yes</span>' ?></td>
                             <td><?= $sensor->is_show == 0 ? '<span class="btn btn-danger btn-sm">No</span>' : '<span class="btn btn-success btn-sm">Yes</span>' ?></td>
                             <td><?= $sensor->extra_parameter == 0 ? '<span class="btn btn-danger btn-sm">No</span>' : ($sensor->extra_parameter == 1 ? '<span class="btn btn-warning btn-sm">O2</span>' : '<span class="btn btn-warning btn-sm">Parameter RCA</span>') ?></td>
+                            <td><?= $sensor->o2_correction == 0 ? '<span class="btn btn-danger btn-sm">No</span>' : '<span class="btn btn-success btn-sm">Yes</span>' ?></td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="<?= base_url('sensor/edit/' . $sensor->sid) ?>"><i class="fas fa-edit"></i></a>
                                 <a id="getdeleteid" data-deleteid="<?= $sensor->sid ?>" class="btn btn-danger btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#modal-delete"><i class="fas fa-trash"></i></a>

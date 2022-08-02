@@ -5,6 +5,7 @@ namespace App\Controllers\Data;
 use App\Controllers\BaseController;
 use App\Models\MdasLog;
 use App\Models\Msensor;
+use App\Models\MsensorValueRCA;
 use App\Models\Munit;
 
 class Data extends BaseController
@@ -17,6 +18,7 @@ class Data extends BaseController
 
         // model
         $this->dasLog = new MdasLog();
+        $this->rcaLog = new MsensorValueRCA();
         $this->unit = new Munit();
         $this->sensor = new Msensor();
     }
@@ -65,6 +67,55 @@ class Data extends BaseController
             'recordsTotal'          => $numrow,
             'recordsFiltered'       => $numrow,
             'data'                  => $dasLog
+        ];
+        echo json_encode($results);
+    }
+
+
+
+    public function rca()
+    {
+        $data['title']      = 'RCA Log';
+        $data['sensor']     = $this->sensor->where(['is_deleted' => 0, 'extra_parameter >' => 0])->findAll();
+
+        echo view('Data/RCA', $data);
+    }
+
+    // ajax rca log
+    public function ajaxRCALog()
+    {
+        $instrument_param_id                = @$this->request->getPost('instrument_param_id');
+        $where                              = "id > '0'";
+        if ($instrument_param_id != '') $where .= "AND instrument_param_id = '{$instrument_param_id}'";
+        $length = @$this->request->getPost('length') ? (int) $this->request->getPost('length') : -1;
+        $start = @$this->request->getPost('start') ? (int) $this->request->getPost('start') : 0;
+        $rcaLogs             = [];
+        $numrow             = $this->rcaLog->where($where)->countAllResults();
+        if ($length == -1) {
+            $listRCALog         = $this->rcaLog->where($where)->orderBy('id DESC')->findAll();
+        } else {
+            $listRCALog         = $this->rcaLog->where($where)->orderBy('id DESC')->findAll(@$length, @$start);
+        }
+        $no = @$this->request->getPost('start');
+        foreach ($listRCALog as $key => $rcaLog) {
+            $no++;
+            $param          = @$this->sensor->where('instrument_param_id', $rcaLog->instrument_param_id)->first()->sensor_code;
+            $unit           = @$this->unit->where('id', $rcaLog->unit_id)->first()->name;
+            $rcaLogs[$key]   = [
+                $no,
+                @$param,
+                date('d/m/Y H:i:s', strtotime(@$rcaLog->xtimestamp)),
+                @$rcaLog->data,
+                @$rcaLog->data_correction,
+                $unit,
+            ];
+        }
+
+        $results = [
+            'draw'                  => @$this->request->getPost('draw'),
+            'recordsTotal'          => $numrow,
+            'recordsFiltered'       => $numrow,
+            'data'                  => $rcaLogs
         ];
         echo json_encode($results);
     }

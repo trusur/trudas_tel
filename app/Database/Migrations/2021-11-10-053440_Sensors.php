@@ -14,10 +14,11 @@ class Sensors extends Migration
             'ain'                   => ['type' => 'INT', 'null' => false],
             'instrument_param_id'   => ['type' => 'INT', 'null' => false],
             'sensor_code'           => ['type' => 'VARCHAR', 'constraint' => '30', 'null' => false],
-            'unit_id'               => ['type' => 'INT', 'null' => false],
+            'unit_id'               => ['type' => 'SMALLINT', 'null' => false],
             'formula'               => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
-            'is_multi_parameter'    => ['type' => 'INT', 'default' => 0, 'null' => false],
-            'extra_parameter'       => ['type' => 'INT', 'default' => 0, 'null' => false],
+            'is_multi_parameter'    => ['type' => 'SMALLINT', 'default' => 0, 'null' => false],
+            'extra_parameter'       => ['type' => 'SMALLINT', 'default' => 0, 'null' => false],
+            'o2_correction'         => ['type' => 'SMALLINT', 'default' => 0],
             'is_show'               => ['type' => 'SMALLINT', 'default' => 0],
             'is_deleted'            => ['type' => 'SMALLINT', 'default' => 0],
             'created_at'            => ['type' => 'DATETIME'],
@@ -39,6 +40,7 @@ class Sensors extends Migration
         $this->forge->addKey('formula');
         $this->forge->addKey('is_multi_parameter');
         $this->forge->addKey('extra_parameter');
+        $this->forge->addKey('o2_correction');
         $this->forge->addKey('is_show');
         $this->forge->createTable('sensors');
     }

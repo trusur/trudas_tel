@@ -9,6 +9,7 @@
                 <li><a href="<?= base_url('/') ?>" class="nav-link px-2  <?= uri_string() == '/' ? 'text-dark' : 'text-white' ?>">Data Acquisition System</a></li>
                 <?php if (session('session_id')) : ?>
                     <li><a href="<?= base_url('data-log') ?>" class="nav-link px-2 <?= uri_string() == 'data-log' ? 'text-dark' : 'text-white' ?>">Das Log</a></li>
+                    <li><a href="<?= base_url('rca-log') ?>" class="nav-link px-2 <?= uri_string() == 'rca-log' ? 'text-dark' : 'text-white' ?>">RCA Log</a></li>
                     <li><a href="<?= base_url('configuration') ?>" class="nav-link px-2  <?= uri_string() == 'configuration' ? 'text-dark' : 'text-white' ?>">Configuration</a></li>
                     <li><a href="<?= base_url('sensor') ?>" class="nav-link px-2  <?= uri_string() == 'sensor' ? 'text-dark' : 'text-white' ?>">Sensor</a></li>
                     <li><a href="<?= base_url('reference') ?>" class="nav-link px-2  <?= uri_string() == 'reference' ? 'text-dark' : 'text-white' ?>">Reference</a></li>

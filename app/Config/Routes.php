@@ -34,10 +34,15 @@ $routes->setAutoRoute(true);
 // home
 $routes->get('/', 'Home\Home::index');
 $routes->get('/getsensorvalue', 'Home\Home::getSensorValues');
+$routes->get('/getsensorvalue-rca', 'Home\Home::getSensorValueRCA');
 
 // data
 $routes->get('/data-log', 'Data\Data::index');
 $routes->add('/ajax/das-log', 'Data\Data::ajaxDasLog');
+
+// rca data
+$routes->get('/rca-log', 'Data\Data::rca');
+$routes->add('/ajax/rca-log', 'Data\Data::ajaxRCALog');
 
 // configuration
 $routes->get('/configuration', 'Configuration\Configuration::index');

@@ -44,6 +44,7 @@ class Sensor extends BaseController
         $data['is_multi_parameter']     = $this->request->getPost('is_multi_parameter');
         $data['is_show']                = $this->request->getPost('is_show');
         $data['extra_parameter']        = $this->request->getPost('extra_parameter');
+        $data['o2_correction']          = $this->request->getPost('o2_correction');
 
         return $data;
     }

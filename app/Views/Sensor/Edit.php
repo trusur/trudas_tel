@@ -94,7 +94,7 @@
                     </div>
                     <div class="col-12 mb-3">
                         <label class="form-label">EXTRA Parameter</label>
-                        <select name="extra_parameter" class="form-control <?= $validation->hasError('extra_parameter') ? 'is-invalid' : '' ?>">
+                        <select id="extra_parameter" name="extra_parameter" class="form-control <?= $validation->hasError('extra_parameter') ? 'is-invalid' : '' ?>">
                             <option value="0" <?= empty(old('extra_parameter')) ? ($sensor->extra_parameter == '0' ? 'selected' : '') : (old('extra_parameter') == '0' ? 'selected' : '') ?>>No</option>
                             <option value="1" <?= empty(old('extra_parameter')) ? ($sensor->extra_parameter == '1' ? 'selected' : '') : (old('extra_parameter') == '1' ? 'selected' : '') ?>>O2</option>
                             <option value="2" <?= empty(old('extra_parameter')) ? ($sensor->extra_parameter == '2' ? 'selected' : '') : (old('extra_parameter') == '2' ? 'selected' : '') ?>>Prameter RCA</option>
@@ -102,6 +102,13 @@
                         <div class="invalid-feedback">
                             <?= $validation->getError('extra_parameter') ?>
                         </div>
+                    </div>
+                    <div id="rca_o2_correction" class="col-12 mb-3 <?= $sensor->extra_parameter == 2 ? '' : 'visually-hidden' ?>">
+                        <label class="form-label">RCA O2 Correction</label>
+                        <select name="o2_correction" class="form-control">
+                            <option value="0" <?= empty(old('o2_correction')) ? ($sensor->o2_correction == '0' ? 'selected' : '') : (old('o2_correction') == '0' ? 'selected' : '') ?>>No</option>
+                            <option value="1" <?= empty(old('o2_correction')) ? ($sensor->o2_correction == '1' ? 'selected' : '') : (old('o2_correction') == '1' ? 'selected' : '') ?>>Yes</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -115,5 +122,20 @@
         </div>
     </div>
 </div>
+<?= $this->endSection() ?>
+
+<?= $this->section('sectionjs') ?>
+<script>
+    $(document).ready(function() {
+        $('#extra_parameter').change(function() {
+            if ($('#extra_parameter').val() == 2) {
+                $('#rca_o2_correction').removeClass('visually-hidden');
+            } else {
+                $('#rca_o2_correction').addClass('visually-hidden');
+            }
+        });
+    })
+</script>
+
 <?= $this->endSection() ?>
 <!-- end content -->
