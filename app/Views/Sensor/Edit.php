@@ -72,7 +72,7 @@
                             <?= $validation->getError('formula') ?>
                         </small>
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-6 mb-3">
                         <label class="form-label">Is Multi Parameter *</label>
                         <select name="is_multi_parameter" class="form-control <?= $validation->hasError('is_multi_parameter') ? 'is-invalid' : '' ?>">
                             <option value="0" <?= empty(old('is_multi_parameter')) ? ($sensor->is_multi_parameter == '0' ? 'selected' : '') : (old('is_multi_parameter') == '0' ? 'selected' : '') ?>>No</option>
@@ -82,7 +82,7 @@
                             <?= $validation->getError('is_multi_parameter') ?>
                         </div>
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-6 mb-3">
                         <label class="form-label">Is Show *</label>
                         <select name="is_show" class="form-control <?= $validation->hasError('is_show') ? 'is-invalid' : '' ?>">
                             <option value="1" <?= empty(old('is_show')) ? ($sensor->is_show == '1' ? 'selected' : '') : (old('is_show') == '1' ? 'selected' : '') ?>>Yes</option>
@@ -92,7 +92,7 @@
                             <?= $validation->getError('is_show') ?>
                         </div>
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-6 mb-3">
                         <label class="form-label">EXTRA Parameter</label>
                         <select id="extra_parameter" name="extra_parameter" class="form-control <?= $validation->hasError('extra_parameter') ? 'is-invalid' : '' ?>">
                             <option value="0" <?= empty(old('extra_parameter')) ? ($sensor->extra_parameter == '0' ? 'selected' : '') : (old('extra_parameter') == '0' ? 'selected' : '') ?>>No</option>
@@ -103,7 +103,7 @@
                             <?= $validation->getError('extra_parameter') ?>
                         </div>
                     </div>
-                    <div id="rca_o2_correction" class="col-12 mb-3 <?= $sensor->extra_parameter == 2 ? '' : 'visually-hidden' ?>">
+                    <div id="rca_o2_correction" class="col-6 mb-3 <?= $sensor->extra_parameter == 2 ? '' : 'visually-hidden' ?>">
                         <label class="form-label">RCA O2 Correction</label>
                         <select name="o2_correction" class="form-control">
                             <option value="0" <?= empty(old('o2_correction')) ? ($sensor->o2_correction == '0' ? 'selected' : '') : (old('o2_correction') == '0' ? 'selected' : '') ?>>No</option>

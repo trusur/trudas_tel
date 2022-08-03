@@ -72,9 +72,10 @@ class Home extends BaseController
     public function modeRca()
     {
         $is_rca = $this->request->getPost('is_rca') == 1 ? 0 : 1;
+        $message = $this->request->getPost('is_rca') == 1 ? 'Mode RCA Telah Selesai' : 'Mode RCA Telah Aktif';
         $this->configuration->set(['is_rca' => $is_rca])->update();
-
-        session()->setFlashdata('message', 'Mode RCA Telah Aktif');
+        sleep(10);
+        session()->setFlashdata('message', $message);
         return redirect()->to('/');
     }
 }

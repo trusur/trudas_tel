@@ -7,9 +7,9 @@
         <div class="d-flex justify-content-between">
             <h1 class="border-bottom border-3 pr-3 pb-3 border-info d-inline-block"><?= @$title ?></h1>
             <?php if (session('session_id')) : ?>
-                <span id="getrcastatus" data-is_rca="<?= $mode_rca ?>" class="btn <?= $mode_rca == 0 ? 'btn-warning' : 'btn-danger' ?> btn-sm" data-bs-toggle="modal" data-bs-target="#modal-start-mode-rca">
+                <button type="button" id="getrcastatus" data-is_rca="<?= $mode_rca ?>" class="btn <?= $mode_rca == 0 ? 'btn-warning' : 'btn-danger' ?> btn-sm" data-bs-toggle="modal" data-bs-target="#modal-start-mode-rca">
                     <h1 class="mt-2"><?= $mode_rca == 0 ? 'START MODE RCA' : 'STOP MODE RCA' ?></h1>
-                </span>
+                </button>
             <?php endif ?>
         </div>
     </div>
@@ -58,7 +58,7 @@
 <div class="modal fade" id="modal-start-mode-rca" tabindex="-1" aria-labelledby="modal-start-mode-rca" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-warning">
-            <form action="<?= base_url('start-mode-rca') ?>" method="POST">
+            <form id="rca_form" action="<?= base_url('start-mode-rca') ?>" method="POST">
                 <div class="modal-header">
                     <h4 class="modal-title text-dark">Konfirmasi!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Start</button>
+                    <button type="submit" class="btn btn-primary btn-sm" id="disable">Start</button>
                 </div>
         </div>
         </form>
@@ -117,9 +117,12 @@
 </script>
 
 <script>
-    // get id
     $(document).on('click', '#getrcastatus', function() {
         $('#is_rca').val($(this).data('is_rca'));
+    })
+    $(document).on('click', '#disable', function() {
+        $('button').prop('disabled', true)
+        $('#rca_form').trigger('submit')
     })
 </script>
 
