@@ -9,6 +9,7 @@ class Backup extends Seeder
 {
     public function run()
     {
+        $this->db->table('backup')->truncate();
         $data =
             [
                 [

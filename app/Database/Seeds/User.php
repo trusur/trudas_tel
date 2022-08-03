@@ -8,6 +8,7 @@ class User extends Seeder
 {
     public function run()
     {
+        $this->db->table('users')->truncate();
         $data =
             [
                 [

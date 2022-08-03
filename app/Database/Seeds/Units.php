@@ -8,6 +8,7 @@ class Units extends Seeder
 {
     public function run()
     {
+        $this->db->table('units')->truncate();
         $data =
             [
                 [
@@ -55,7 +56,7 @@ class Units extends Seeder
                     'updated_by'        => 'admin@trusur.com',
                     'updated_ip'        => '127.0.0.1'
                 ],
-				[
+                [
                     'name'              => 'm3/h',
                     'created_at'        => date('Y-m-d H:i:s'),
                     'created_by'        => 'admin@trusur.com',
@@ -64,7 +65,7 @@ class Units extends Seeder
                     'updated_by'        => 'admin@trusur.com',
                     'updated_ip'        => '127.0.0.1'
                 ],
-				[
+                [
                     'name'              => 'Nm3/h',
                     'created_at'        => date('Y-m-d H:i:s'),
                     'created_by'        => 'admin@trusur.com',
@@ -109,7 +110,7 @@ class Units extends Seeder
                     'updated_by'        => 'admin@trusur.com',
                     'updated_ip'        => '127.0.0.1'
                 ],
-				[
+                [
                     'name'              => 'C',
                     'created_at'        => date('Y-m-d H:i:s'),
                     'created_by'        => 'admin@trusur.com',
@@ -118,7 +119,7 @@ class Units extends Seeder
                     'updated_by'        => 'admin@trusur.com',
                     'updated_ip'        => '127.0.0.1'
                 ],
-				[
+                [
                     'name'              => 'kg/h',
                     'created_at'        => date('Y-m-d H:i:s'),
                     'created_by'        => 'admin@trusur.com',
