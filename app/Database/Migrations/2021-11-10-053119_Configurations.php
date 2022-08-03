@@ -19,7 +19,7 @@ class Configurations extends Migration
             'addr_num'              => ['type' => 'INT', 'null' => false],
             'server_url'            => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
             'server_apikey'         => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
-            'day_backup'            => ['type' => 'INT', 'null' => false],
+            'day_backup'            => ['type' => 'VARCHAR', 'null' => false],
             'is_rca'                => ['type' => 'SMALLINT', 'default' => 0],
             'oxygen_reference'      => ['type' => 'INT', 'null' => true],
             'is_deleted'            => ['type' => 'SMALLINT', 'default' => 7],
