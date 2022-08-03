@@ -71,8 +71,6 @@ class Data extends BaseController
         echo json_encode($results);
     }
 
-
-
     public function rca()
     {
         $data['title']      = 'RCA Log';
@@ -118,5 +116,13 @@ class Data extends BaseController
             'data'                  => $rcaLogs
         ];
         echo json_encode($results);
+    }
+
+    public function resetRCALog()
+    {
+        if ($this->rcaLog->truncate()) {
+            session()->setFlashdata('message', 'Success Reset Data RCA');
+            return redirect()->to('/rca-log');
+        }
     }
 }

@@ -60,12 +60,12 @@
         <div class="modal-content bg-warning">
             <form id="rca_form" action="<?= base_url('start-mode-rca') ?>" method="POST">
                 <div class="modal-header">
-                    <h4 class="modal-title text-dark">Konfirmasi!</h4>
+                    <h4 class="modal-title text-dark">Confirmation!</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="is_rca" id="is_rca">
-                    <p class="text-dark">Apakah Anda Yakin Ingin Memulai Mode RCA ?&hellip;</p>
+                    <p class="text-dark">Are You Sure Want to Start RCA Mode ?&hellip;</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>

@@ -43,6 +43,7 @@ $routes->add('/ajax/das-log', 'Data\Data::ajaxDasLog');
 // rca data
 $routes->get('/rca-log', 'Data\Data::rca');
 $routes->add('/ajax/rca-log', 'Data\Data::ajaxRCALog');
+$routes->add('/rca-log/reset-data', 'Data\Data::resetRCALog');
 
 // configuration
 $routes->get('/configuration', 'Configuration\Configuration::index');
