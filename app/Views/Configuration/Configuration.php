@@ -13,7 +13,7 @@
             <form action="<?= base_url('configuration/update') ?>" method="POST">
                 <div class="row">
                     <div class="col-6">
-                        <label>Das Name 1 <?= @$config->id ?> <small class="text-danger">*</small></label>
+                        <label>Das Name <small class="text-danger">*</small></label>
                         <input type="hidden" name="id" value="<?= @$config->id ?>">
                         <input type="text" name="name" placeholder="Das Name *" class="form-control mb-3 <?= $validation->hasError('name') ? 'is-invalid' : '' ?>" value="<?= !empty(old('name')) ? old('name') : @$config->name ?>" required>
                         <small class="text-danger">
