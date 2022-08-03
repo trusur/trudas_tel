@@ -6,9 +6,11 @@
     <div class="row">
         <div class="d-flex justify-content-between">
             <h1 class="border-bottom border-3 pr-3 pb-3 border-info d-inline-block"><?= @$title ?></h1>
-            <span id="getrcastatus" data-is_rca="<?= $mode_rca ?>" class="btn <?= $mode_rca == 0 ? 'btn-warning' : 'btn-danger' ?> btn-sm" data-bs-toggle="modal" data-bs-target="#modal-start-mode-rca">
-                <h1 class="mt-2"><?= $mode_rca == 0 ? 'START MODE RCA' : 'STOP MODE RCA' ?></h1>
-            </span>
+            <?php if (session('session_id')) : ?>
+                <span id="getrcastatus" data-is_rca="<?= $mode_rca ?>" class="btn <?= $mode_rca == 0 ? 'btn-warning' : 'btn-danger' ?> btn-sm" data-bs-toggle="modal" data-bs-target="#modal-start-mode-rca">
+                    <h1 class="mt-2"><?= $mode_rca == 0 ? 'START MODE RCA' : 'STOP MODE RCA' ?></h1>
+                </span>
+            <?php endif ?>
         </div>
     </div>
 
