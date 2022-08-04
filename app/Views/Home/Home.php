@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-sm" id="disable">Start</button>
+                    <button type="submit" class="btn btn-primary btn-sm" id="disable"><?= $mode_rca == 0 ? 'Start' : 'Stop' ?></button>
                 </div>
         </div>
         </form>
