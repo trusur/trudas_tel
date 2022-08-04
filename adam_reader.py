@@ -20,11 +20,11 @@ try:
     port = '/dev/ttyADAM'
     port = 'COM10'
     baudrate = 9600
-    client = ModbusClient(
-        method='rtu', port=port, baudrate=baudrate, parity='N', timeout=1
-    )
 
     def read_value(data_value):
+        client = ModbusClient(
+            method='rtu', port=port, baudrate=baudrate, parity='N', timeout=1
+        )
         read = client.read_holding_registers(0, 8, unit=1)
         read_register = read.registers[data_value]
         voltage_value = float(read_register * 20 / 4095)
