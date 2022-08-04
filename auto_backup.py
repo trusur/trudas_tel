@@ -23,13 +23,9 @@ while True:
         "SELECT day_backup FROM configurations")
     mycursor.execute(sql_backup_day)
     day_backup = mycursor.fetchone()[0]
-    print(now.strftime("%Y%m%j %H:%M"))
-    exit()
 
     if(now.strftime("%Y%m%d %H:%M") == now.strftime("%Y%m" + str(day_backup) + " 15:50")):
-
-        dt_string = now.strftime("%Y%m%d_%H%M%S")
-
+        time_backup = now.strftime("%Y%m%d_%H%M")
         subprocess.Popen(
-            "pg_dump.exe --dbname=postgresql://postgres:root@localhost:5432/trudas_db > backup/trudas_db_backup_.sql", shell=True)
+            "pg_dump.exe --dbname=postgresql://postgres:root@localhost:5432/trudas_db > backup/trudas_db_backup_"+str(time_backup)+".sql", shell=True)
         time.sleep(1)
