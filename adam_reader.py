@@ -21,12 +21,9 @@ try:
     port = 'COM10'
     baudrate = 9600
 
-    def read_value(data_value):
-        client = ModbusClient(
-            method='rtu', port=port, baudrate=baudrate, parity='N', timeout=1
-        )
+    def read_value(client, data_value):
         read = client.read_holding_registers(0, 8, unit=1)
-        read_register = read.registers[data_value]
+        read_register = read.registers[data_value] * 20 / 4095
         voltage_value = float(read_register * 20 / 4095)
         return voltage_value
 
@@ -43,6 +40,12 @@ try:
 
         if(connection == True):
             try:
+                # client = ModbusClient(
+                #     method='rtu', port=port, baudrate=baudrate, parity='N', timeout=1
+                # )
+                # read = client.read_holding_registers(0, 8, unit=1)
+                # round((read.registers[0] * 20 / 4095), 2)
+
                 # print(read.registers)
                 # reverse value to origin voltage
                 # select configurations extra_parameter
@@ -55,7 +58,7 @@ try:
                     "SELECT * FROM sensors WHERE is_deleted = '0' ORDER BY id ASC")
                 mycursor.execute(getdata)
                 data = mycursor.fetchall()
-
+                []
                 for ain in data:
                     # get value from reader
                     # value = read.registers[ain[2]]  # reading register 30223
