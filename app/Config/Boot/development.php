@@ -9,6 +9,8 @@
  | painful debugging.
  */
 error_reporting(-1);
+date_default_timezone_set('Asia/Makassar');
+ini_set('memory_limit', '-1');
 ini_set('display_errors', '1');
 
 /*

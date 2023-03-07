@@ -6,6 +6,7 @@ use App\Models\Mbackup;
 use App\Models\MdasLog;
 use App\Models\Msensor;
 use App\Models\MsensorValue;
+use App\Models\MsensorValueLog;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
@@ -16,6 +17,7 @@ class Average extends BaseCommand
     {
         date_default_timezone_set('Asia/Jakarta');
         $this->sensorValue = new MsensorValue();
+        $this->sensorValueLog = new MsensorValueLog();
         $this->dasLog = new MdasLog();
         $this->sensor = new Msensor();
         $this->backup = new Mbackup();
@@ -119,6 +121,21 @@ class Average extends BaseCommand
                         "xtimestamp" => date("Y-m-d H:i:s"),
                     ];
                     $this->dasLog->save($dasLog);
+                } else {
+                    $value = $this->sensorValueLog->where('instrument_param_id', $sensor->instrument_param_id)->first()->data;
+                    $weatherDasLog = [
+                        "instrument_param_id" => $sensor->instrument_param_id,
+                        "time_group" => $dasLogs["waktu"],
+                        "measured_at" => $dasLogs["waktu"],
+                        "data" => $value,
+                        "voltage" => $value,
+                        "unit_id" => $sensor->unit_id,
+                        "updated_at" => date("Y-m-d H:i:s"),
+                        "updated_by" => "system",
+                        "updated_ip" => "127.0.0.1",
+                        "xtimestamp" => date("Y-m-d H:i:s"),
+                    ];
+                    $this->dasLog->save($weatherDasLog);
                 }
             }
             $this->sensorValue->set(["is_averaged" => 1])->where("id BETWEEN '" . $dasLogs["id_start"] . "' AND '" . $dasLogs["id_end"] . "'")->update();

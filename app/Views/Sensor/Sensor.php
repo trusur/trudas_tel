@@ -16,7 +16,7 @@
     <?= $this->include('Template/Alert') ?>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mb-5">
             <table class="table table-hovered table-boreded text-center">
                 <thead>
                     <th width="50">No</th>

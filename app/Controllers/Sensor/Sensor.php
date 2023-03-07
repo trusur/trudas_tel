@@ -101,10 +101,9 @@ class Sensor extends BaseController
                     ]
                 ],
                 'formula' => [
-                    'rules'    => 'required|max_length[200]',
+                    'rules'    => 'required',
                     'errors'     => [
                         'required'          => 'Formula Empty! ..',
-                        'max_length'        => 'Max Length 200 Character ..',
                     ]
                 ],
                 'is_multi_parameter' => [
@@ -184,10 +183,9 @@ class Sensor extends BaseController
                     ]
                 ],
                 'formula' => [
-                    'rules'    => 'required|max_length[200]',
+                    'rules'    => 'required',
                     'errors'     => [
                         'required'          => 'Formula Empty! ..',
-                        'max_length'        => 'Max Length 200 Character ..',
                     ]
                 ],
                 'is_multi_parameter' => [

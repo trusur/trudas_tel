@@ -12,7 +12,7 @@ class SendingData extends BaseCommand
 {
     public function __construct()
     {
-        date_default_timezone_set('Asia/Makassar');
+        date_default_timezone_set('Asia/Jakarta');
         $this->sensor_value = new MsensorValue();
         $this->config = new Mconfiguration();
         $this->dasLog = new MdasLog();
@@ -86,7 +86,8 @@ class SendingData extends BaseCommand
                 // $req["sensor{$dLog->sensor_id}"] = (float) $dLog->data . '|' . (float) $dLog->voltage;
 
                 $json =  json_encode($data, true);
-                // dd($data);
+                //print_r($data);
+				//exit();
 
                 try {
                     $curl = curl_init();
@@ -106,8 +107,8 @@ class SendingData extends BaseCommand
                         ),
                     ));
                     $response = curl_exec($curl);
-                    // dd($response);
-                    // exit();
+                    //print_r($response);
+                    //exit();
                     curl_close($curl);
                     $responseArray = json_decode($response, 1);
                     // dd($responseArray);
@@ -115,6 +116,7 @@ class SendingData extends BaseCommand
                         $this->dasLog->update($dLog->id, ['is_sent' => 1]);
                         echo "Data Sent Successfully!";
                         echo PHP_EOL;
+						//exit();
                         // dd($data);
                     } else {
                         echo "Error sending data!";

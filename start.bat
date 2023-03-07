@@ -1,2 +1,2 @@
 @echo off
-"C:\xampp\htdocs\trudas\eGateway_start.py"
+"C:\trudas_tel\eGateway_start.py"

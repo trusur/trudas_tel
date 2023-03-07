@@ -1,7 +1,8 @@
 #-------------------------
 # Operating Specific Junk Files
 #-------------------------
-
+backup/*
+public/backups/*
 # OS X
 .DS_Store
 .AppleDouble

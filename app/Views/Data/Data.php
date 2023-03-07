@@ -12,7 +12,8 @@
     <div class="row">
         <div class="col-md-12 mb-2">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-3">
+					<label>Parameter</label>
                     <select id="instrument_param_id" class="form-control">
                         <option value="">-- Select Parameter --</option>
                         <?php foreach ($sensor as $sList) : ?>
@@ -20,7 +21,16 @@
                         <?php endforeach ?>
                     </select>
                 </div>
-                <div class="col-md-2">
+				<div class="col-md-3">
+					<label>Date Time Start</label>
+					<input name="date_start" type="datetime-local" class="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<label>Date Time End</label>
+					<input name="date_end" type="datetime-local" class="form-control"/>
+				</div>
+                <div class="col-md-3 py-4">
+					
                     <button type="button" onclick="dataTable.draw()" class="btn btn-primary"><i class="fas fa-search mr-2"></i>Cari</button>
                     <button type="reset" onclick="location.reload()" class="btn btn-secondary"><i class="fas fa-sync mr-2"></i>Reset</button>
                 </div>
@@ -83,6 +93,8 @@
                 "url": "<?= base_url('/ajax/das-log') ?>",
                 "data": function(data) {
                     data.instrument_param_id = $('#instrument_param_id').val();
+					data.date_start = $('input[name="date_start"]').val();
+					data.date_end = $('input[name="date_end"]').val();
                 }
             },
             dom: '<"dt-buttons"B><"clear">lfrtip',

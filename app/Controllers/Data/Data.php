@@ -35,8 +35,14 @@ class Data extends BaseController
     public function ajaxDasLog()
     {
         $instrument_param_id                = @$this->request->getPost('instrument_param_id');
+		$date_start                			= @$this->request->getPost('date_start');
+		$date_start = @$date_start ? str_replace("T", " ", $date_start) : "";
+		$date_end                			= @$this->request->getPost('date_end');
+		$date_end = @$date_end ? str_replace("T", " ", $date_end) : "";
         $where                              = "id > '0'";
-        if ($instrument_param_id != '') $where .= "AND instrument_param_id = '{$instrument_param_id}'";
+        if ($instrument_param_id != '') $where .= " AND instrument_param_id = '{$instrument_param_id}'";
+		if ($date_start != '') $where .= " AND measured_at >= '{$date_start}'";
+		if ($date_end != '') $where .= " AND measured_at <= '{$date_end}'";
         $length = @$this->request->getPost('length') ? (int) $this->request->getPost('length') : -1;
         $start = @$this->request->getPost('start') ? (int) $this->request->getPost('start') : 0;
         $dasLog             = [];
@@ -66,7 +72,8 @@ class Data extends BaseController
             'draw'                  => @$this->request->getPost('draw'),
             'recordsTotal'          => $numrow,
             'recordsFiltered'       => $numrow,
-            'data'                  => $dasLog
+            'data'                  => $dasLog,
+			'where' => $where
         ];
         echo json_encode($results);
     }
@@ -82,17 +89,23 @@ class Data extends BaseController
     // ajax rca log
     public function ajaxRCALog()
     {
+		$date_start                			= @$this->request->getPost('date_start');
+		$date_start = @$date_start ? str_replace("T", " ", $date_start) : "";
+		$date_end                			= @$this->request->getPost('date_end');
+		$date_end = @$date_end ? str_replace("T", " ", $date_end) : "";
         $instrument_param_id                = @$this->request->getPost('instrument_param_id');
         $where                              = "id > '0'";
         if ($instrument_param_id != '') $where .= "AND instrument_param_id = '{$instrument_param_id}'";
+		if ($date_start != '') $where .= "AND xtimestamp >= '{$date_start}'";
+		if ($date_end != '') $where .= "AND xtimestamp <= '{$date_end}'";
         $length = @$this->request->getPost('length') ? (int) $this->request->getPost('length') : -1;
         $start = @$this->request->getPost('start') ? (int) $this->request->getPost('start') : 0;
         $rcaLogs             = [];
         $numrow             = $this->rcaLog->where($where)->countAllResults();
         if ($length == -1) {
-            $listRCALog         = $this->rcaLog->where($where)->orderBy('id DESC')->findAll();
+            $listRCALog         = $this->rcaLog->where($where)->orderBy('id ASC')->findAll();
         } else {
-            $listRCALog         = $this->rcaLog->where($where)->orderBy('id DESC')->findAll(@$length, @$start);
+            $listRCALog         = $this->rcaLog->where($where)->orderBy('id ASC')->findAll(@$length, @$start);
         }
         $no = @$this->request->getPost('start');
         foreach ($listRCALog as $key => $rcaLog) {

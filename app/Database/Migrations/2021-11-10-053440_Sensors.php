@@ -15,7 +15,7 @@ class Sensors extends Migration
             'instrument_param_id'   => ['type' => 'INT', 'null' => false],
             'sensor_code'           => ['type' => 'VARCHAR', 'constraint' => '30', 'null' => false],
             'unit_id'               => ['type' => 'SMALLINT', 'null' => false],
-            'formula'               => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
+            'formula'               => ['type' => 'TEXT', 'null' => false],
             'is_multi_parameter'    => ['type' => 'SMALLINT', 'default' => 0, 'null' => false],
             'extra_parameter'       => ['type' => 'SMALLINT', 'default' => 0, 'null' => false],
             'o2_correction'         => ['type' => 'SMALLINT', 'default' => 0],

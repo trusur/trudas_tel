@@ -24,8 +24,8 @@ while True:
     mycursor.execute(sql_backup_day)
     day_backup = mycursor.fetchone()[0]
 
-    if(now.strftime("%Y%m%d %H:%M") == now.strftime("%Y%m" + str(day_backup) + " 15:50")):
+    if(now.strftime("%Y%m%d %H:%M") == now.strftime("%Y%m" + str(day_backup) + " 00:01")):
         time_backup = now.strftime("%Y%m%d_%H%M")
         subprocess.Popen(
             "pg_dump.exe --dbname=postgresql://postgres:root@localhost:5432/trudas_db > backup/trudas_db_backup_"+str(time_backup)+".sql", shell=True)
-        time.sleep(1)
+        time.sleep(60)

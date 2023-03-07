@@ -20,23 +20,39 @@
     <div class="row">
         <?php if ($mode_rca == 0) : ?>
             <?php foreach ($sensorvalues as $value) : ?>
-                <div class="col-lg-4 my-2">
-                    <div id="changeBG<?= $value->svinstrument_param_id ?>" class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h1 class="h4"><?= $value->scode ?></h1>
-                                <p><span class="h1" data-id="<?= $value->svinstrument_param_id ?>"><?= $value->data ?></span> <small class="text-dark"><?= $value->uname ?></small></p>
-                            </div>
-                            <div class="d-flex justify-content-end align-items-center">
-                                <p><span class="h5" data-id="<?= 'v_' . $value->svinstrument_param_id ?>"><?= $value->voltage ?></span> <small class="text-dark">V</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<?php if($value->instrument_param_id < 9) : ?>
+					<div class="col-lg-3 my-2">
+						<div id="changeBG<?= $value->svinstrument_param_id ?>" class="card">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<h1 class="h4"><?= $value->scode ?></h1>
+									<p><span class="h1" data-id="<?= $value->svinstrument_param_id ?>"><?= $value->data ?></span> <small class="text-dark"><?= $value->uname ?></small></p>
+								</div>
+								<div class="d-flex justify-content-end align-items-center">
+									<p><span class="h5" data-id="<?= 'v_' . $value->svinstrument_param_id ?>"><?= $value->voltage ?></span> <small class="text-dark">mA</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php else : ?>
+					<div class="col-sm my-2">
+						<div id="changeBG<?= $value->svinstrument_param_id ?>" class="card">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h1 class="h6"><?= $value->scode ?></h1>
+								</div>
+								<div class="d-flex align-items-center justify-content-between">
+									<p>&nbsp;</p>
+									<p><span class="h4" data-id="<?= $value->svinstrument_param_id ?>"><?= $value->data ?></span> <small class="text-dark"><?= $value->uname ?></small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php endif ?>
             <?php endforeach ?>
         <?php else : ?>
             <?php foreach ($sensorvalue_rca as $value_rca) : ?>
-                <div class="col-lg-4 my-2">
+                <div class="col-lg-3 my-2">
                     <div id="changeBG<?= $value_rca->svinstrument_param_id ?>" class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
@@ -44,7 +60,7 @@
                                 <p><span class="h1" data-id="<?= $value_rca->svinstrument_param_id ?>"><?= $value_rca->data ?></span> <small class="text-dark"><?= $value_rca->uname ?></small></p>
                             </div>
                             <div class="d-flex justify-content-end align-items-center">
-                                <p><span class="h5" data-id="<?= 'v_' . $value_rca->svinstrument_param_id ?>"><?= $value_rca->voltage ?></span> <small class="text-dark">V</small></p>
+                                <p><span class="h5" data-id="<?= 'v_' . $value_rca->svinstrument_param_id ?>"><?= $value_rca->voltage ?></span> <small class="text-dark">mA</small></p>
                             </div>
                         </div>
                     </div>
@@ -65,7 +81,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="is_rca" id="is_rca">
-                    <p class="text-dark">Are You Sure Want to Start RCA Mode ?&hellip;</p>
+                    <p class="text-dark">Are You Sure Want to <?= $mode_rca == 0 ? 'Start' : 'Stop' ?> RCA Mode ?&hellip;</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>

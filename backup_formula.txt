@@ -1,0 +1,8 @@
+1	-	6	1	NO	mg/Nm3	round(((6.25 * (read.registers[6] * 20 / 4095)) - 25) * (30 / 22.4), 2)					 
+2	-	4	2	SO2	mg/Nm3	round(((50 * (read.registers[4] * 20 / 4095)) - 200) * (64 / 22.4), 2)					 
+3	-	6	3	NO2	mg/Nm3	round(((((62.5 * (read.registers[5] * 20 / 4095)) - 250) * (46/22.4)) - ((6.25 * (read.registers[6] * 20 / 4095)) - 25) * (30/22.4)), 2)					 
+4	-	5	4	NOX	mg/Nm3	round((62.5 * (read.registers[5] * 20 / 4095) - 250) * (46/22.4), 2)					 
+5	-	0	5	O2	%	round(1.5625 * (read.registers[0] * 20 / 4095) - 6.25, 2)					 
+6	-	1	6	Opacity	%	round(((6.25 * (read.registers[1] * 20 / 4095)) - 25), 2)					 
+7	-	2	7	Particulate	mg/Nm3	round((16.875 * (read.registers[2] * 20 / 4095)) - 67.5, 2)					 
+8	-	3	8	Flow	m3/sec	round((3.14 * (1.25 * 1.25)) * (3.1875 * (read.registers[3] * 20 / 4095) - 12.75), 2)
