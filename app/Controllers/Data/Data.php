@@ -27,55 +27,74 @@ class Data extends BaseController
     {
         $data['title']      = 'Data';
         $data['sensor']     = $this->sensor->where('is_deleted', 0)->findAll();
-
-        echo view('Data/Data', $data);
+        $data['tables']     = $this->getTables();
+        return view('Data/Data', $data);
     }
 
+    public function getTables(){
+		$db      = \Config\Database::connect();
+		$lists             = $db->listTables();
+		foreach ($lists as $table) {
+			if (substr($table, 0, strlen('das_logs')) == 'das_logs') {
+				$tables[] = $table;
+			}
+		}
+		return $tables;
+	}
     // ajax das log
     public function ajaxDasLog()
     {
-        $instrument_param_id                = @$this->request->getPost('instrument_param_id');
-		$date_start                			= @$this->request->getPost('date_start');
+        // REQUEST Data
+        $table_source                = @$this->request->getGet('table_source');
+        $instrument_param_id                = @$this->request->getGet('instrument_param_id');
+		$date_start                			= @$this->request->getGet('date_start');
 		$date_start = @$date_start ? str_replace("T", " ", $date_start) : "";
-		$date_end                			= @$this->request->getPost('date_end');
+		$date_end                			= @$this->request->getGet('date_end');
 		$date_end = @$date_end ? str_replace("T", " ", $date_end) : "";
-        $where                              = "id > '0'";
-        if ($instrument_param_id != '') $where .= " AND instrument_param_id = '{$instrument_param_id}'";
-		if ($date_start != '') $where .= " AND measured_at >= '{$date_start}'";
-		if ($date_end != '') $where .= " AND measured_at <= '{$date_end}'";
-        $length = @$this->request->getPost('length') ? (int) $this->request->getPost('length') : -1;
-        $start = @$this->request->getPost('start') ? (int) $this->request->getPost('start') : 0;
-        $dasLog             = [];
-        $numrow             = $this->dasLog->where($where)->countAllResults();
-        if ($length == -1) {
-            $listDasLog         = $this->dasLog->where($where)->orderBy('id DESC')->findAll();
-        } else {
-            $listDasLog         = $this->dasLog->where($where)->orderBy('id DESC')->findAll(@$length, @$start);
-        }
-        $no = @$this->request->getPost('start');
-        foreach ($listDasLog as $key => $lLog) {
-            $no++;
-            $param          = @$this->sensor->where('instrument_param_id', $lLog->instrument_param_id)->first()->sensor_code;
-            $unit           = @$this->unit->where('id', $lLog->unit_id)->first()->name;
-            $dasLog[$key]   = [
-                $no,
-                @$param,
-                @$lLog->measured_at,
-                @$lLog->data,
-                @$lLog->voltage,
-                $unit,
-                @$lLog->is_sent == 0 ? '<span class="badge bg-danger badge-sm">Not Yet</span>' : '<span class="badge bg-success badge-sm">Sent</span>',
-            ];
-        }
+        // REQUEST Data Datatable
+        $length = @$this->request->getGet('length') ? (int) $this->request->getGet('length') : -1;
+        $start = @$this->request->getGet('start') ? (int) $this->request->getGet('start') : 0;
+        $order_col = $this->request->getGet("order[0][column]");
+        $order_dir = $this->request->getGet("order[0][dir]");
+        $order = ["$table_source.id","$table_source.instrument_param_id","measured_at","data","voltage","sensors.unit_id","is_sent"];
+        // Builder
+		$db      = \Config\Database::connect();
+		$builder = $db->table($table_source);
+        // Where Clause
+        $where                              = "1=1";
+        if ($instrument_param_id != '') $where .= " AND $table_source.instrument_param_id = '{$instrument_param_id}'";
+		if ($date_start != '') $where .= " AND $table_source.measured_at >= '{$date_start}'";
+		if ($date_end != '') $where .= " AND $table_source.measured_at <= '{$date_end}'";
+        // SQL Query
+        $selects = [
+            "sensors.sensor_code as parameter",
+            "units.name as unit",
+            "$table_source.id",
+            "$table_source.measured_at",
+            "$table_source.measured_at",
+            "$table_source.data",
+            "$table_source.voltage",
+            "$table_source.is_sent"
+        ];
+        $recordTotal = $builder->countAllResults();
+        $data = $builder
+            ->select(join(", ",$selects))
+            ->join("sensors","$table_source.instrument_param_id=sensors.instrument_param_id","left")
+            ->join("units","sensors.unit_id=units.id","left")
+            ->where($where)
+            ->orderBy($order[$order_col],$order_dir)
+            ->get(($length == -1 ? null : $length), $start)
+            ->getResultObject();
+        $recordFiltered = $builder->where($where)->countAllResults();
 
         $results = [
-            'draw'                  => @$this->request->getPost('draw'),
-            'recordsTotal'          => $numrow,
-            'recordsFiltered'       => $numrow,
-            'data'                  => $dasLog,
-			'where' => $where
+            'draw'                  => @$this->request->getGet('draw'),
+            'recordsTotal'          => $recordTotal,
+            'recordsFiltered'       => $recordFiltered,
+            'data'                  => $data,
         ];
-        echo json_encode($results);
+        // dd($results);
+        return $this->response->setJSON($results);
     }
 
     public function rca()
