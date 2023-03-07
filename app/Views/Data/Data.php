@@ -52,8 +52,8 @@
                             <th>ID</th>
                             <th>Datetime</th>
                             <th>Parameter</th>
-                            <th>Data</th>
-                            <th>Voltage</th>
+                            <th>Measured</th>
+                            <th>Analog</th>
                             <th>Unit</th>
                             <th>Sent</th>
                         </tr>

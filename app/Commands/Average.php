@@ -102,7 +102,7 @@ class Average extends BaseCommand
             foreach ($dasLogs["data"] as $dasLog) {
                 @$instrument_param_id[$dasLog->instrument_param_id] = $dasLog->instrument_param_id;
                 @$data[$dasLog->instrument_param_id] += $dasLog->data;
-                @$voltage[$dasLog->instrument_param_id] += $dasLog->data;
+                @$voltage[$dasLog->instrument_param_id] += $dasLog->voltage;
                 @$numdata[$dasLog->instrument_param_id]++;
             }
             foreach ($this->sensor->findAll() as $sensor) {
